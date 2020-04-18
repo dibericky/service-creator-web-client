@@ -1,0 +1,41 @@
+# APP DEPLOYMENT
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-creator-web-client
+spec:
+  selector:
+    matchLabels:
+      run: service-creator-web-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: service-creator-web-client
+    spec:
+      containers:
+      - name: service-creator-web-client
+        image: localhost:32000/service-creator-web-client:latest
+        ports:
+        - containerPort: 80
+
+
+---
+
+# APP SERVICE
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-creator-web-client
+  labels:
+    run: service-creator-web-client
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: service-creator-web-client
+  type: LoadBalancer

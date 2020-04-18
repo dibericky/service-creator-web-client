@@ -32,7 +32,7 @@ class App extends Component {
       return
     }
     this.setState({isLoading: true})
-    axios.post('/init', {
+    axios.post('/api/init', {
       user,
       repoName,
       branch,
@@ -78,7 +78,7 @@ class App extends Component {
     const {basicInfo: {repoName, user, branch}, routes} = this.state
     this.setState({isLoading: true})
 
-    axios.post('/routes', {
+    axios.post('/api/routes', {
       user,
       repoName,
       routes,
