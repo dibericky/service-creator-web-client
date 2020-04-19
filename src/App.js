@@ -6,6 +6,7 @@ import {LoadingOutlined} from '@ant-design/icons'
 import InitForm from './components/InitForm'
 import RoutesForm from './components/RoutesForm'
 import Overview from './components/Overview.js'
+import Dependencies from './components/Dependecies';
 
 const STEPS = {
   init: 'INIT',
@@ -19,7 +20,8 @@ class App extends Component {
     basicInfo: {},
     step: STEPS.init,
     routes: [],
-    isLoading: false
+    isLoading: false,
+    additionalDependencies: []
   }
 
   onInitSubmit = (values) => {
@@ -66,10 +68,31 @@ class App extends Component {
     )
   }
 
+  onAddDependency = ({name, version}) => {
+    this.setState(state => ({
+      additionalDependencies: state.additionalDependencies.concat([{name, version}])
+    }))
+  }
+
+  onRemoveDependency = (name) => {
+    this.setState(state => ({
+      additionalDependencies: state.additionalDependencies.filter(dep => dep.name !== name)
+    }))
+  }
   renderRoutes () {
+    const {additionalDependencies} = this.state
     return (
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <RoutesForm onSubmit={this.onRoutesSubmit} />
+      <div style={{display: 'grid', gridTemplateColumns: '2fr 1fr', height: '100%', overflow: 'hidden'}}>
+        <div style={{overflow: 'auto'}}>
+          <RoutesForm onSubmit={this.onRoutesSubmit} />
+        </div>
+        <div style={{padding: 10}}>
+          <Dependencies
+            onAdd={this.onAddDependency}
+            onRemove={this.onRemoveDependency}
+            dependencies={additionalDependencies}
+          />
+        </div>
       </div>
     )
   }
