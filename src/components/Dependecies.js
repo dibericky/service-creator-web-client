@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import {List, Input, Button, Form, AutoComplete} from 'antd'
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons'
-import npmSearch from 'libnpmsearch'
+
+import npmSearch from '../lib/npmSearch'
 
 const { useForm } = Form
 
@@ -109,3 +110,4 @@ function AddDependency({onAdd, existingDependencies=[]}) {
         </Form>
     )
 }
+
