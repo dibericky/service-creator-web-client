@@ -98,7 +98,7 @@ class App extends Component {
   }
 
   onConfirm = ({message}) => {
-    const {basicInfo: {repoName, user, branch}, routes} = this.state
+    const {basicInfo: {repoName, user, branch}, routes, additionalDependencies} = this.state
     this.setState({isLoading: true})
 
     axios.post('/api/routes', {
@@ -106,7 +106,8 @@ class App extends Component {
       repoName,
       routes,
       branch,
-      message
+      message,
+      additionalDependencies
     }).then(() => {
       this.setState({
         isLoading: false,
