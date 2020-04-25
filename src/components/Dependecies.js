@@ -55,14 +55,6 @@ function AddDependency({onAdd, existingDependencies=[]}) {
             form.resetFields()
           }}
           form={form}
-          onValuesChange={values => {
-              if(values.name) {
-                  const moduleChosen = npmResults.find(item => item.name === values.name)
-                  form.setFieldsValue({
-                      version: moduleChosen ? moduleChosen.version : undefined
-                  })
-              }
-          }}
         >
             <Form.Item 
                 name={'name'} 
@@ -82,7 +74,13 @@ function AddDependency({onAdd, existingDependencies=[]}) {
             >
                 <AutoComplete 
                     options={npmResults.map(item => ({value: item.name, label: `${item.name} - ${item.version}`}))}
-                    placeholder={'module name'} 
+                    placeholder={'Module name'} 
+                    onSelect={value => {
+                        const moduleChosen = npmResults.find(item => item.name === value)
+                        form.setFieldsValue({
+                            version: moduleChosen ? moduleChosen.version : undefined
+                        })
+                    }}
                     onSearch={value => {
                         npmSearch(value, {limit: 10})
                              .then(results => {

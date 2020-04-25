@@ -10,6 +10,7 @@
     "antd": "^4.1.2",
     "axios": "^0.19.2",
     "copy-webpack-plugin": "^5.1.1",
+    "http-proxy-middleware": "^1.0.3",
     "monaco-editor": "^0.20.0",
     "monaco-editor-webpack-plugin": "^1.9.0",
     "react": "^16.13.1",
@@ -20,7 +21,7 @@
     "react-syntax-highlighter": "^12.2.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "PORT=4000 react-app-rewired start",
     "build": "GENERATE_SOURCEMAP=false && react-app-rewired --max_old_space_size=4096 build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
